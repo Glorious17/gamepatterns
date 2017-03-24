@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using SFML;
 using SFML.Graphics;
+using SFML.Window;
 
 namespace FirstProject
 {
@@ -13,16 +14,14 @@ namespace FirstProject
     {
         static void Main(string[] args)
         {
-            RenderWindow window = new RenderWindow(new Window.VideoMode(200, 200), "test");
-            CircleShape cs = new CircleShape(100.0f);
-            cs.FillColor = Color.Green;
-            window.SetActive();
-            while (window.IsOpen)
+            var rw = new RenderWindow(VideoMode.FullscreenModes[0], "Helloworld", Styles.Default);
+            bool running = true;
+            while(running)
             {
-                window.Clear();
-                window.DispatchEvents();
-                window.Draw(cs);
-                window.Display();
+                rw.Clear(Color.Cyan);
+                rw.DispatchEvents();
+                rw.Closed += (sender, evtArgs) => running = false;
+                rw.Display();
             }
         }
     }
